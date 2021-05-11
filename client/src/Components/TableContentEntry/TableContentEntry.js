@@ -5,12 +5,18 @@ import StatusUpdateModal from '../StatusUpdateModal/StatusUpdateModal';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectLoading } from '../../redux/requests/requests.selector';
+import { selectUsername } from '../../redux/user/user.selector';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { updateStatusStart } from '../../redux/requests/requests.actions';
 import '../TabbedContent/TabbedContent.css';
 import './TableContentEntry.css';
 
-const TableContentEntry = ({ entry, updateResourceStatus, isLoading }) => {
+const TableContentEntry = ({
+	entry,
+	updateResourceStatus,
+	isLoading,
+	username,
+}) => {
 	//	const hist = useHistory();
 	const [edit, setEdit] = useState(false);
 	const [show, setShow] = useState(false);
@@ -26,8 +32,12 @@ const TableContentEntry = ({ entry, updateResourceStatus, isLoading }) => {
 		setShow(false);
 	};
 	const saveConfirmHandler = async (remarks, isresolve) => {
-		console.log(status);
-		await updateResourceStatus({ name: 'Saby', id: entry.id, status: status });
+		await updateResourceStatus({
+			name: username,
+			id: entry.id,
+			status: status,
+			remarks: remarks,
+		});
 	};
 	const date = new Date(entry.time);
 	const timeTweet =
@@ -75,7 +85,9 @@ const TableContentEntry = ({ entry, updateResourceStatus, isLoading }) => {
 					<div className="table-entry-col" contentEditable={edit}>
 						{entry.phone_number}
 					</div>
-					<div className="table-entry-col" contentEditable={edit}></div>
+					<div className="table-entry-col" contentEditable={edit}>
+						{entry.validation_details}
+					</div>
 					<div className="table-entry-col"></div>
 					<div className="table-entry-col">
 						<div className="table-entry-icon-container">
@@ -89,7 +101,8 @@ const TableContentEntry = ({ entry, updateResourceStatus, isLoading }) => {
 								style={{
 									backgroundColor: `${
 										entry.validation_status === '0' ||
-										entry.validation_status === '1'
+										entry.validation_status === '1' ||
+										entry.validation_status == null
 											? '#228c22'
 											: ''
 									}`,
@@ -106,7 +119,8 @@ const TableContentEntry = ({ entry, updateResourceStatus, isLoading }) => {
 								style={{
 									backgroundColor: `${
 										entry.validation_status === '0' ||
-										entry.validation_status === '3'
+										entry.validation_status === '3' ||
+										entry.validation_status == null
 											? 'red'
 											: ''
 									}`,
@@ -123,7 +137,8 @@ const TableContentEntry = ({ entry, updateResourceStatus, isLoading }) => {
 								style={{
 									backgroundColor: `${
 										entry.validation_status === '0' ||
-										entry.validation_status === '2'
+										entry.validation_status === '2' ||
+										entry.validation_status == null
 											? '#f8b195'
 											: ''
 									}`,
@@ -138,7 +153,10 @@ const TableContentEntry = ({ entry, updateResourceStatus, isLoading }) => {
 								}`}
 								style={{
 									backgroundColor: `${
-										entry.validation_status === '0' ? '#00bfff' : ''
+										entry.validation_status === '0' ||
+										entry.validation_status == null
+											? '#00bfff'
+											: ''
 									}`,
 								}}
 								onClick={editClickHandler}
@@ -153,6 +171,7 @@ const TableContentEntry = ({ entry, updateResourceStatus, isLoading }) => {
 
 const mapStateToProps = createStructuredSelector({
 	isLoading: selectLoading,
+	username: selectUsername,
 });
 
 const mapDispatchToProps = (dispatch) => ({

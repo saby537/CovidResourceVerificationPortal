@@ -38,8 +38,8 @@ export function* updateStatus({ payload }) {
 	const httpAbortCtrl = new AbortController();
 	try {
 		//console.log(payload);
-		const { id, status, name } = payload;
-		const reqBody = { id, status };
+		const { id, status, name, remarks } = payload;
+		const reqBody = { id, status, remarks };
 		const res = yield fetch(`/api/requests`, {
 			method: 'POST',
 			body: JSON.stringify(reqBody),

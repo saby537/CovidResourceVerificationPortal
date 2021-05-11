@@ -17,11 +17,11 @@ const getRequests = async (req, res, next) => {
 			console.log(errors);
 			return next(new HttpError('Invalid data entry!!', 422));
 		}
-		const { id, status } = req.body;
+		const { id, status, remarks } = req.body;
 		const statusVal = statusLists[status];
 		//console.log(id, statusVal);
 		response = await client.query(
-			`update covid_resource_details set Validation_status = '${statusVal}'  where Id like '${id}'`
+			`update covid_resource_details set Validation_status = '${statusVal}',Validation_details = '${remarks}'  where Id like '${id}'`
 		);
 		//console.log(response);
 	} catch (error) {

@@ -8,17 +8,24 @@ import {
 	selectLoading,
 	selectResources,
 } from '../../redux/requests/requests.selector';
+import { selectUsername } from '../../redux/user/user.selector';
 import { getRequestsStart } from '../../redux/requests/requests.actions';
 
 import './TabbedContent.css';
 
-const TabbedContent = ({ id, resourcesQueue, isLoading, fetchResources }) => {
+const TabbedContent = ({
+	id,
+	resourcesQueue,
+	isLoading,
+	fetchResources,
+	username,
+}) => {
 	useEffect(() => {
 		const getRequests = async () => {
-			await fetchResources({ name: 'Saby', status: id });
+			await fetchResources({ name: username, status: id });
 		};
 		getRequests();
-	}, [fetchResources, id]);
+	}, [fetchResources, id, username]);
 	//console.log(resourcesQueue);
 	return (
 		<div className="tabbed-content-container">
@@ -41,6 +48,7 @@ const TabbedContent = ({ id, resourcesQueue, isLoading, fetchResources }) => {
 const mapStateToProps = createStructuredSelector({
 	isLoading: selectLoading,
 	resourcesQueue: selectResources,
+	username: selectUsername,
 });
 
 const mapDispatchToProps = (dispatch) => ({

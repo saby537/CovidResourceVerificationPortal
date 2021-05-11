@@ -22,9 +22,16 @@ const Header = ({ username, isLoading, startLogOut }) => {
 					<div
 						className="header-title"
 						style={{
-							textAlign: `${username ? 'left' : 'center'}`,
+							justifyContent: `${username ? 'flex-start' : 'center'}`,
 						}}
 					>
+						<div className="header-icon-container">
+							<img
+								src="../../assets/logo_white.png"
+								alt="logo_white"
+								className="header-icon"
+							/>
+						</div>
 						Covid Resource Verification Portal
 					</div>
 					{username != null && (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Button from '../../Components/Button/Button';
 import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 import ErrorModal from '../../Components/ErrorModal/ErrorModal';

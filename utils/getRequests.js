@@ -29,7 +29,7 @@ const getRequests = async (req, res, next) => {
 		}
 		//console.log(valName, valStatus);
 		ans = await client.query(
-			`select id,Time,Message,Provider,Validation_status,Source,City,Requirement_list,Phone_number from covid_resource_details where (${valName}) and (${valStatus}) and City is not NULL and Requirement_list is not NULL and Phone_number is not NULL ORDER BY Validation_status,Time DESC limit 10 `
+			`select id,Time,Message,Provider,Validation_status,Validation_details,Source,City,Requirement_list,Phone_number from covid_resource_details where (${valName}) and (${valStatus}) and City is not NULL and Requirement_list is not NULL and Phone_number is not NULL ORDER BY Validation_status,Time DESC limit 10 `
 		);
 
 		if (statusVal === '0') {
