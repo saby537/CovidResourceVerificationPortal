@@ -1,0 +1,36 @@
+.header-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	background-color: #1b047c;
+	color: white;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 10px 20px;
+	font-size: 20px;
+	height: 30px;
+	z-index: 10;
+}
+.header-title {
+	flex: 1;
+}
+
+.header-options {
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+	width: 7%;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.header-icon {
+	height: 100%;
+	padding: 4px;
+	cursor: pointer;
+}
+.header-icon:hover {
+	height: 110%;
+}

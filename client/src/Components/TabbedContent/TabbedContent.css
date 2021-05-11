@@ -1,0 +1,51 @@
+.tabbed-content-container {
+	border: solid 2px black;
+	margin-top: -2px;
+	z-index: 0;
+}
+
+.content-table {
+	margin: 10px;
+}
+
+.table-header-col {
+	background-color: #c83200;
+	color: white;
+	border: solid 2px black;
+	border-left: none;
+	padding: 8px 2px;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+}
+
+.table-header-col-1 {
+	width: 6%;
+	border-left: solid 2px black !important;
+}
+.table-header-col-2 {
+	width: 7%;
+}
+.table-header-col-3 {
+	width: 20%;
+}
+.table-header-col-4 {
+	width: 7%;
+}
+.table-header-col-5 {
+	width: 10%;
+}
+.table-header-col-6 {
+	width: 10%;
+}
+.table-header-col-7 {
+	width: 11%;
+}
+.table-header-col-8 {
+	width: 12%;
+}
+.table-header-col-9 {
+	width: 7%;
+}
+.table-header-col-10 {
+	width: 10%;
+}

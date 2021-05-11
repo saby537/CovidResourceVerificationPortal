@@ -1,0 +1,5 @@
+.table-header-container {
+	display: grid;
+	grid-template-columns: 6% 7% 20% 7% 10% 10% 11% 12% 7% 10%;
+	width: 100%;
+}
