@@ -38,7 +38,7 @@ app.get('/service-worker.js', (req, res) => {
 app.use(router);
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static(path.join(__dirname, 'client/build')));
-
+	console.log('Production');
 	app.get('*', function (req, res) {
 		res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 	});
