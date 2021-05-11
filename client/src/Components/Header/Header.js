@@ -1,34 +1,59 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import {
+	selectLoading,
+	selectUsername,
+} from '../../redux/user/user.selector.js';
+import { logOutStart } from '../../redux/user/user.actions';
 import './Header.css';
 
-const Header = ({ location }) => {
+const Header = ({ username, isLoading, startLogOut }) => {
+	const logOutHandler = async () => {
+		await startLogOut();
+	};
 	return (
-		<div className="header-container">
-			<div
-				className="header-title"
-				style={{
-					textAlign: `${location.pathname === '/login' ? 'center' : 'left'}`,
-				}}
-			>
-				Covid Resource Verification Portal
-			</div>
-			{location.pathname !== '/login' && (
-				<div className="header-options">
-					<img
-						src="../../assets/guidelines_icon.png"
-						className="header-icon"
-						alt="guidelines"
-					/>
-					<img
-						src="../../assets/logout-icon.png"
-						className="header-icon"
-						alt="logout"
-					/>
+		<div>
+			{isLoading ? (
+				<LoadingSpinner asOverlay />
+			) : (
+				<div className={`header-container ${username && 'logged-in'}`}>
+					<div
+						className="header-title"
+						style={{
+							textAlign: `${username ? 'left' : 'center'}`,
+						}}
+					>
+						Covid Resource Verification Portal
+					</div>
+					{username != null && (
+						<div className="header-options">
+							<img
+								src="../../assets/guidelines_icon.png"
+								className="header-icon"
+								alt="guidelines"
+							/>
+							<img
+								src="../../assets/logout-icon.png"
+								className="header-icon"
+								alt="logout"
+								onClick={logOutHandler}
+							/>
+						</div>
+					)}
 				</div>
 			)}
 		</div>
 	);
 };
 
-export default withRouter(Header);
+const mapStateToProps = createStructuredSelector({
+	isLoading: selectLoading,
+	username: selectUsername,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	startLogOut: (data) => dispatch(logOutStart(data)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

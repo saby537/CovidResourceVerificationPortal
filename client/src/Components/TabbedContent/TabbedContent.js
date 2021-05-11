@@ -22,18 +22,18 @@ const TabbedContent = ({ id, resourcesQueue, isLoading, fetchResources }) => {
 	//console.log(resourcesQueue);
 	return (
 		<div className="tabbed-content-container">
-			{isLoading || resourcesQueue === null ? (
-				<LoadingSpinner asOverlay />
-			) : (
-				<div className="content-table">
-					<TableContentHeader selected={id} />
+			<div className="content-table">
+				<TableContentHeader selected={id} />
+				{isLoading || resourcesQueue === null ? (
+					<LoadingSpinner asOverlay />
+				) : (
 					<div className="table-content-entry-container">
 						{resourcesQueue.map((entry, i) => (
 							<TableContentEntry key={i} entry={entry} />
 						))}
 					</div>
-				</div>
-			)}
+				)}
+			</div>
 		</div>
 	);
 };

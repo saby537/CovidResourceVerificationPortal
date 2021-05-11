@@ -1,64 +1,60 @@
 import { takeLatest, call, all, put } from 'redux-saga/effects';
 import {
-	signUpSuccess,
-	signUpFailure,
 	logInSuccess,
 	logInFailure,
+	logOutFailure,
+	logOutSuccess,
 } from './user.actions';
 import userActionTypes from './user.types';
 
-export function* signUp({ payload }) {
+export function* logOut({ payload }) {
 	const httpAbortCtrl = new AbortController();
 	try {
-		console.log(payload);
-		const res = yield fetch(
-			`${process.env.REACT_APP_API_URL}/api/users/signup`,
-			{
-				method: 'POST',
-				body: JSON.stringify(payload),
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				signal: httpAbortCtrl.signal,
-			}
-		);
+		const res = yield fetch(`/api/logout`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			signal: httpAbortCtrl.signal,
+		});
 		const responseData = yield res.json();
 		if (!res.ok) {
-			yield put(signUpFailure(responseData.errors));
+			yield put(logOutFailure(responseData.errors));
 		} else {
-			yield put(signUpSuccess(responseData));
+			yield put(logOutSuccess(responseData));
 		}
 	} catch (err) {
 		console.log('error');
-		yield put(signUpFailure(err));
+		yield put(logOutFailure(err));
 	}
 	setTimeout(() => httpAbortCtrl.abort(), 5000);
 }
 
-export function* onSignUp() {
-	yield takeLatest(userActionTypes.SIGN_UP_START, signUp);
+export function* onLogOut() {
+	yield takeLatest(userActionTypes.LOG_OUT_START, logOut);
 }
 
 export function* logIn({ payload }) {
 	const httpAbortCtrl = new AbortController();
 	try {
-		console.log(payload);
-		const res = yield fetch(
-			`${process.env.REACT_APP_API_URL}/api/users/login`,
-			{
-				method: 'POST',
-				body: JSON.stringify(payload),
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				signal: httpAbortCtrl.signal,
-			}
-		);
+		const reqBody = {
+			username: payload.username.value,
+			password: payload.password.value,
+		};
+		console.log(reqBody);
+		const res = yield fetch(`/api/login`, {
+			method: 'POST',
+			body: JSON.stringify(reqBody),
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			signal: httpAbortCtrl.signal,
+		});
 		const responseData = yield res.json();
-		if (!res.ok) {
+		if (!res.ok || res.status !== 200) {
 			yield put(logInFailure(responseData.errors));
 		} else {
-			yield put(logInSuccess(responseData));
+			yield put(logInSuccess(responseData.user[0]));
 		}
 	} catch (err) {
 		console.log('error');
@@ -72,5 +68,5 @@ export function* onLogIn() {
 }
 
 export function* userSagas() {
-	yield all([call(onSignUp), call(onLogIn)]);
+	yield all([call(onLogOut), call(onLogIn)]);
 }

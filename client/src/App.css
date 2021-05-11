@@ -1,9 +1,13 @@
 .App {
 	text-align: center;
-	font-family: Montserrat, Cambria, Cochin, Georgia, Times, 'Times New Roman',
-		serif !important;
+	font-family: Source Sans Pro, -apple-system, BlinkMacSystemFont, Segoe UI,
+		Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
+		Segoe UI Symbol, serif !important;
+	background-color: #f4f6f9;
+	min-height: 100vh;
 }
 input {
-	font-family: Montserrat, Cambria, Cochin, Georgia, Times, 'Times New Roman',
-		serif !important;
+	font-family: Source Sans Pro, -apple-system, BlinkMacSystemFont, Segoe UI,
+		Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
+		Segoe UI Symbol, serif !important;
 }

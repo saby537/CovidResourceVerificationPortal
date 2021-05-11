@@ -9,6 +9,8 @@
 	margin-right: 1rem;
 	text-decoration: none;
 	display: inline-block;
+	font-weight: 600;
+	letter-spacing: 0.75px;
 }
 
 .button:focus {

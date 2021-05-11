@@ -8,12 +8,12 @@
 	margin-top: 15vh;
 	width: 30%;
 	border-radius: 8px;
-	border: solid 1px black;
+	border: solid 1px #aaaaaa;
 	padding: 15px 0;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background-color: #c83200;
+	background-color: white;
 	box-shadow: 0 26px 32px 0 rgb(22 28 45 / 16%);
 }
 
@@ -29,14 +29,19 @@
 	font-size: 16px;
 	font-weight: 500;
 	margin-bottom: 4px;
-	color: white;
+	color: black;
 }
 
 .login-input {
 	margin-bottom: 10px;
 	font-size: 16px;
 	padding: 5px;
-	border: solid 1px black;
+	border: solid 1px #cccccc;
+	border-radius: 5px;
+}
+
+.login-input:focus {
+	border: solid 2px #1b047c;
 }
 
 .login-input:focus {
@@ -45,7 +50,7 @@
 
 .join-us-container {
 	margin-top: 10px;
-	color: white;
+	color: black;
 	font-weight: 500;
 }
 

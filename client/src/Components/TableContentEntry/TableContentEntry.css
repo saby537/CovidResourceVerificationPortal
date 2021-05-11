@@ -5,7 +5,7 @@
 
 .table-entry-col {
 	color: black;
-	border: solid 2px black;
+	border: solid 2px white;
 	border-top: none;
 	border-left: none;
 	padding: 8px 4px;
@@ -15,10 +15,11 @@
 	align-items: center;
 	font-weight: 600;
 	overflow-wrap: anywhere;
+	background-color: #f4f6f9;
 }
 
 .table-entry-col:first-of-type {
-	border-left: solid 2px black;
+	border-left: solid 2px white;
 }
 
 .entry-item {
@@ -55,6 +56,16 @@
 	cursor: pointer;
 }
 
+.table-entry-icon-original {
+	width: 30%;
+	border-radius: 10%;
+	padding: 5px 3px;
+	margin-bottom: 8px;
+	color: white;
+	background-color: #228c22;
+	box-shadow: 0 13px 12px 0 rgb(22 28 45 / 16%);
+	cursor: pointer;
+}
 .table-entry-icon-deactivate:hover {
 	width: 30%;
 	border-radius: 10%;

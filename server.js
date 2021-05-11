@@ -1,5 +1,5 @@
 const express = require('express');
-const cors = require('cors');
+const cookieSession = require('cookie-session');
 const bodyParser = require('body-parser');
 const path = require('path');
 const compression = require('compression');
@@ -14,6 +14,12 @@ const port = process.env.PORT || 5000;
 app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+	cookieSession({
+		signed: false,
+		secure: process.env.NODE_ENV !== 'test',
+	})
+);
 
 app.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Origin', '*');

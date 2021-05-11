@@ -48,7 +48,7 @@ const TableContentEntry = ({ entry, updateResourceStatus, isLoading }) => {
 			{!isLoading && (
 				<div className="table-entry-container">
 					<StatusUpdateModal
-						showConfirm={show && status != ''}
+						showConfirm={show && status !== ''}
 						cancelConfirmHandler={cancelConfirmHandler}
 						saveConfirmHandler={saveConfirmHandler}
 					/>
@@ -81,35 +81,66 @@ const TableContentEntry = ({ entry, updateResourceStatus, isLoading }) => {
 						<div className="table-entry-icon-container">
 							<CheckCircle
 								id="accepted"
-								className={`${
-									entry.status === 'accepted'
-										? 'table-entry-icon'
-										: 'table-entry-icon-deactivate'
+								className={`table-entry-icon ${
+									entry.validation_status !== '1' &&
+									entry.validation_status !== '0' &&
+									'table-entry-icon-deactivate'
 								}`}
+								style={{
+									backgroundColor: `${
+										entry.validation_status === '0' ||
+										entry.validation_status === '1'
+											? '#228c22'
+											: ''
+									}`,
+								}}
 								onClick={statusClickHandler}
 							/>
 							<XCircle
 								id="rejected"
-								className={`${
-									entry.status === 'rejected'
-										? 'table-entry-icon'
-										: 'table-entry-icon-deactivate'
+								className={`table-entry-icon ${
+									entry.validation_status !== '3' &&
+									entry.validation_status !== '0' &&
+									'table-entry-icon-deactivate'
 								}`}
+								style={{
+									backgroundColor: `${
+										entry.validation_status === '0' ||
+										entry.validation_status === '3'
+											? 'red'
+											: ''
+									}`,
+								}}
 								onClick={statusClickHandler}
 							/>
 							<HelpCircle
 								id="tentative"
-								className={`${
-									entry.status === 'tentative'
-										? 'table-entry-icon'
-										: 'table-entry-icon-deactivate'
+								className={` table-entry-icon ${
+									entry.validation_status !== '2' &&
+									entry.validation_status !== '0' &&
+									'table-entry-icon-deactivate'
 								}`}
+								style={{
+									backgroundColor: `${
+										entry.validation_status === '0' ||
+										entry.validation_status === '2'
+											? '#f8b195'
+											: ''
+									}`,
+								}}
 								onClick={statusClickHandler}
 							/>
 							<Edit
-								className={`${
-									edit ? 'table-entry-icon' : 'table-entry-icon-deactivate'
+								className={` table-entry-icon ${
+									entry.validation_status === '0'
+										? 'table-entry-icon-original'
+										: 'table-entry-icon-deactivate'
 								}`}
+								style={{
+									backgroundColor: `${
+										entry.validation_status === '0' ? '#00bfff' : ''
+									}`,
+								}}
 								onClick={editClickHandler}
 							/>
 						</div>

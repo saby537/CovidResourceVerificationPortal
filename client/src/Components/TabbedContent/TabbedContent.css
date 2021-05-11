@@ -1,17 +1,19 @@
 .tabbed-content-container {
-	border: solid 2px black;
+	background-color: white;
+	border-radius: 10px;
 	margin-top: -2px;
 	z-index: 0;
+	box-shadow: 0 33px 40px 0 rgb(22 28 45 / 16%);
 }
 
 .content-table {
-	margin: 10px;
+	margin: 25px 15px;
 }
 
 .table-header-col {
 	background-color: #c83200;
 	color: white;
-	border: solid 2px black;
+	border: solid 2px white;
 	border-left: none;
 	padding: 8px 2px;
 	font-weight: 600;
@@ -20,7 +22,7 @@
 
 .table-header-col-1 {
 	width: 6%;
-	border-left: solid 2px black !important;
+	border-left: solid 2px white !important;
 }
 .table-header-col-2 {
 	width: 7%;

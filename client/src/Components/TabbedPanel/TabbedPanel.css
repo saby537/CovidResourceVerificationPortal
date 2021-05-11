@@ -17,28 +17,25 @@
 	display: flex;
 	flex-direction: row;
 	flex: 1;
+	margin-left: 5px;
 }
 .tab-header {
 	padding: 8px 25px;
 	height: 100%;
-	font-weight: 400;
+	font-weight: 600;
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
 	margin-right: 0px;
 	color: #aaaaaa;
-	background-color: #cccccc;
-	border: solid 2px #aaaaaa;
-	border-bottom: solid 2px #aaaaaa;
-	border-right: solid 2px #aaaaaa;
+	background-color: #eeeeee;
 	cursor: pointer;
 }
 .tab-headers-container .tab-header:first-of-type {
-	border-left: solid 2px #aaaaaa;
 }
 .active {
 	color: white;
 	background-color: #1b047c;
-	border: solid 2px black;
+	border: none !important;
 }
 .tab-icons {
 	display: flex;

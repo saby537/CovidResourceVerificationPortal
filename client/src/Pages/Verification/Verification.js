@@ -4,7 +4,7 @@ import './Verification';
 
 const Verification = () => {
 	return (
-		<div style={{ marginTop: '5%', height: '100%', padding: '10px 20px' }}>
+		<div style={{ height: '100%', padding: '10px 20px', paddingTop: '7%' }}>
 			<TabbedPanel />
 		</div>
 	);
