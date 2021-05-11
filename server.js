@@ -29,6 +29,7 @@ app.get('/service-worker.js', (req, res) => {
 	console.log('Testing service worker');
 	res.sendFile(path.resolve(__dirname, 'client/build', 'service-worker.js'));
 });
+app.use(router);
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static(path.join(__dirname, 'client/build')));
 
@@ -36,8 +37,6 @@ if (process.env.NODE_ENV === 'production') {
 		res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 	});
 }
-
-app.use(router);
 app.use((error, req, res, next) => {
 	if (res.headerSent) {
 		return next(error);
