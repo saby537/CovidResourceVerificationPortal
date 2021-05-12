@@ -1,5 +1,5 @@
 import React from 'react';
-import { RefreshCcw } from 'react-feather';
+//import { RefreshCcw } from 'react-feather';
 import { withRouter, useHistory } from 'react-router-dom';
 import TabbedContent from '../../Components/TabbedContent/TabbedContent';
 import './TabbedPanel.css';

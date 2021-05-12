@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { XCircle, CheckCircle, Edit, HelpCircle } from 'react-feather';
 import StatusUpdateModal from '../StatusUpdateModal/StatusUpdateModal';
 import { connect } from 'react-redux';
@@ -6,7 +6,10 @@ import { createStructuredSelector } from 'reselect';
 import { selectLoading } from '../../redux/requests/requests.selector';
 import { selectUsername } from '../../redux/user/user.selector';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
-import { updateStatusStart } from '../../redux/requests/requests.actions';
+import {
+	updateStatusStart,
+	editRequestsStart,
+} from '../../redux/requests/requests.actions';
 import '../TabbedContent/TabbedContent.css';
 import './TableContentEntry.css';
 
@@ -15,13 +18,26 @@ const TableContentEntry = ({
 	updateResourceStatus,
 	isLoading,
 	username,
+	editRequests,
 }) => {
 	//	const hist = useHistory();
 	const [edit, setEdit] = useState(false);
 	const [show, setShow] = useState(false);
 	const [status, setStatus] = useState('');
-	const editClickHandler = () => {
+	const [values, setValues] = useState({
+		id: entry.id,
+		message: entry.message,
+		provider: entry.provider,
+		requirement_list: entry.requirement_list,
+		city: entry.city,
+		validation_details: entry.validation_details,
+		phone_number: entry.phone_number,
+	});
+	const editClickHandler = async () => {
 		setEdit((prev) => !prev);
+		if (edit === true) {
+			await editRequests(values);
+		}
 	};
 	const statusClickHandler = (e) => {
 		setShow(true);
@@ -31,6 +47,7 @@ const TableContentEntry = ({
 		setShow(false);
 	};
 	const saveConfirmHandler = async (remarks, isresolve) => {
+		remarks = values.validation_details + ' ' + remarks;
 		await updateResourceStatus({
 			name: username,
 			id: entry.id,
@@ -38,6 +55,16 @@ const TableContentEntry = ({
 			remarks: remarks,
 		});
 	};
+
+	const onChangeHandler = (e) => {
+		//console.log(e.target.value, e.target.id);
+		let tval = e.target.id.split('-')[1];
+		setValues({
+			...values,
+			[tval]: e.target.value,
+		});
+	};
+	//console.log(values);
 	const date = new Date(entry.time);
 	const timeTweet =
 		date.getDate() +
@@ -51,6 +78,16 @@ const TableContentEntry = ({
 		date.getMinutes() +
 		':' +
 		date.getSeconds();
+
+	useEffect(() => {
+		const id = `${entry.id}-message`;
+		let elem = document.getElementById(id);
+		while (elem.clientHeight < elem.scrollHeight) {
+			elem.rows++;
+		}
+		//	console.log(elem.rows);
+	}, [values.message, entry.id]);
+
 	return (
 		<div>
 			{isLoading && <LoadingSpinner asOverlay />}
@@ -66,27 +103,75 @@ const TableContentEntry = ({
 						<img
 							src="../../assets/twitter-icon.png"
 							alt="twitter-icon"
-							style={{ width: '70%' }}
+							style={{ width: '70%', padding: '8px 4px' }}
 						/>
 					</div>
-					<div className="table-entry-col">{timeTweet}</div>
-					<div className="table-entry-col" contentEditable={edit}>
-						{entry.message}
+					<div className="table-entry-col" style={{ padding: '8px 4px' }}>
+						{timeTweet}
 					</div>
-					<div className="table-entry-col" contentEditable={edit}>
-						{entry.requirement_list}
+					<div id="message-div" className="table-entry-col">
+						<textarea
+							id={`${entry.id}-message`}
+							value={values.message}
+							className="table-entry-input-value"
+							onChange={onChangeHandler}
+							rows={3}
+							disabled={!edit}
+						/>
 					</div>
-					<div className="table-entry-col" contentEditable={edit}>
-						{entry.city}
+					<div id="requirement_list" className="table-entry-col">
+						<textarea
+							id={`${entry.id}-requirement_list	`}
+							value={values.requirement_list}
+							className="table-entry-input-value"
+							onChange={onChangeHandler}
+							rows={3}
+							disabled={!edit}
+						/>
 					</div>
-					<div className="table-entry-col" contentEditable={edit}>
-						{entry.provider}
+					<div id="city" className="table-entry-col">
+						<textarea
+							id={`${entry.id}-city`}
+							value={values.city}
+							className="table-entry-input-value"
+							onChange={onChangeHandler}
+							rows={3}
+							disabled={!edit}
+						/>
 					</div>
-					<div className="table-entry-col" contentEditable={edit}>
-						{entry.phone_number}
+					<div id="provider" className="table-entry-col">
+						<textarea
+							id={`${entry.id}-provider`}
+							value={values.provider}
+							className="table-entry-input-value"
+							onChange={onChangeHandler}
+							rows={3}
+							disabled={!edit}
+						/>
 					</div>
-					<div className="table-entry-col" contentEditable={edit}>
-						{entry.validation_details}
+					<div id="phone_number" className="table-entry-col">
+						<textarea
+							id={`${entry.id}-phone_number`}
+							value={values.phone_number}
+							className="table-entry-input-value"
+							onChange={onChangeHandler}
+							rows={3}
+							disabled={!edit}
+						/>
+					</div>
+					<div id="validation_details" className="table-entry-col">
+						<textarea
+							id={`${entry.id}-validation_details`}
+							value={`${
+								values.validation_details == null
+									? ''
+									: values.validation_details
+							}`}
+							className="table-entry-input-value"
+							onChange={onChangeHandler}
+							rows={3}
+							disabled={!edit}
+						/>
 					</div>
 					<div className="table-entry-col"></div>
 					<div className="table-entry-col">
@@ -173,5 +258,6 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
 	updateResourceStatus: (data) => dispatch(updateStatusStart(data)),
+	editRequests: (data) => dispatch(editRequestsStart(data)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(TableContentEntry);

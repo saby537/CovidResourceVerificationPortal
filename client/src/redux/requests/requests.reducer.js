@@ -5,10 +5,24 @@ const INITIAL_STATE = {
 	error: null,
 };
 
+const updateRequest = (requests, data) => {
+	return requests.map((req) =>
+		req.id === data.id
+			? {
+					...data,
+					source: req.source,
+					time: req.time,
+					validation_status: req.validation_status,
+			  }
+			: req
+	);
+};
+
 const requestReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case requestsActionTypes.GET_REQUESTS_START:
 		case requestsActionTypes.UPDATE_STATUS_START:
+		case requestsActionTypes.EDIT_REQUESTS_START:
 			return {
 				...state,
 				isLoading: true,
@@ -26,7 +40,14 @@ const requestReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				isLoading: false,
 			};
+		case requestsActionTypes.EDIT_REQUESTS_SUCCESS:
+			return {
+				...state,
+				isLoading: false,
+				resources: updateRequest(state.resources, action.payload),
+			};
 		case requestsActionTypes.GET_REQUESTS_FAILURE:
+		case requestsActionTypes.EDIT_REQUESTS_FAILURE:
 		case requestsActionTypes.UPDATE_STATUS_FAILURE:
 			return {
 				...state,

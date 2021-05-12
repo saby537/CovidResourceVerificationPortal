@@ -9,7 +9,7 @@
 		"build": "cd client && npm run build",
 		"dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
 		"start": "node server.js",
-		"heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+		"heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
 	},
 	"keywords": [],
 	"author": "",
@@ -25,6 +25,6 @@
 		"express-validator": "^6.11.1",
 		"jsonwebtoken": "^8.5.1",
 		"pg": "^8.6.0",
-	"concurrently": "^6.1.0"
+		"concurrently": "^6.1.0"
 	}
 }

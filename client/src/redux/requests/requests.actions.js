@@ -30,3 +30,17 @@ export const updateStatusFailure = (err) => ({
 export const emptyError = () => ({
 	type: requestsActionTypes.EMPTY_ERROR,
 });
+
+export const editRequestsStart = (data) => ({
+	type: requestsActionTypes.EDIT_REQUESTS_START,
+	payload: data,
+});
+export const editRequestsSuccess = (data) => ({
+	type: requestsActionTypes.EDIT_REQUESTS_SUCCESS,
+	payload: data,
+});
+
+export const editRequestsFailure = (err) => ({
+	type: requestsActionTypes.EDIT_REQUESTS_FAILURE,
+	payload: err,
+});

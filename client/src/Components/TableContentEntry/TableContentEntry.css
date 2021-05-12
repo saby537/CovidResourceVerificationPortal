@@ -8,7 +8,6 @@
 	border: solid 2px white;
 	border-top: none;
 	border-left: none;
-	padding: 8px 4px;
 	font-size: 14px;
 	display: flex;
 	flex-direction: column;
@@ -39,6 +38,7 @@
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
+	padding: 8px 4px;
 }
 
 .table-entry-icon {
@@ -92,4 +92,27 @@
 .table-entry-edit-icon {
 	background-color: #00bfff;
 	color: white;
+}
+
+.table-entry-input-value {
+	background-color: inherit;
+	width: calc(100% - 20px);
+	height: 100%;
+	border: none;
+	font-size: 14px;
+	font-weight: 600;
+	resize: none;
+	word-wrap: break-word;
+	word-break: break-all;
+	padding: 8px 10px;
+}
+
+.table-entry-input-value:disabled {
+	color: black;
+}
+
+.table-entry-input-value:focus {
+	z-index: 3;
+	outline: none;
+	box-shadow: -2px 10px 18px 5px rgb(22 28 45 / 16%);
 }
