@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-//import { useHistory } from 'react-router-dom';
 import { XCircle, CheckCircle, Edit, HelpCircle } from 'react-feather';
 import StatusUpdateModal from '../StatusUpdateModal/StatusUpdateModal';
 import { connect } from 'react-redux';
