@@ -13,16 +13,27 @@
 	flex-direction: row;
 	margin: 10px;
 	margin-bottom: 20px;
+	align-items: flex-start;
 }
 
 .status-update-input-label {
 	min-width: 18%;
 	font-weight: bold;
 	margin-right: 10px;
+	display: flex;
+	font-size: 16px;
+	flex-direction: column;
 }
+
+.status-update-input-label .sub-head {
+	font-size: 12px;
+	font-weight: normal;
+}
+
 .status-update-input-text {
 	flex: 1;
 	font-family: inherit;
+	padding: 5px;
 }
 .status-update-divider {
 	margin: auto;

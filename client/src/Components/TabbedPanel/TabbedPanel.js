@@ -45,9 +45,9 @@ const TabbedPanel = ({ match }) => {
 						Rejected
 					</div>
 				</div>
-				<div className="tab-icons">
+				{/* <div className="tab-icons">
 					<RefreshCcw className="tab-icon" />
-				</div>
+				</div> */}
 			</div>
 			<TabbedContent id={headerIndex} />
 		</div>

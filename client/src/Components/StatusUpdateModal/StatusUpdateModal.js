@@ -7,6 +7,7 @@ const StatusUpdateModal = ({
 	showConfirm,
 	cancelConfirmHandler,
 	saveConfirmHandler,
+	status,
 }) => {
 	const [remarks, setRemarks] = useState('');
 	const [isresolve, setResolve] = useState(false);
@@ -37,7 +38,10 @@ const StatusUpdateModal = ({
 			}
 		>
 			<div className="status-update-input-container">
-				<span className="status-update-input-label">Remark</span>
+				<div className="status-update-input-label">
+					<span>Remark</span>
+					<span className="sub-head">(Not Mandatory)</span>
+				</div>
 				<textarea
 					className="status-update-input-text"
 					rows={4}
@@ -45,13 +49,15 @@ const StatusUpdateModal = ({
 					onChange={remarkChangeHandler}
 				/>
 			</div>
-			<div className="status-update-input-container">
-				<span className="status-update-input-label">Auto-Resolve</span>
-				<label className="switch">
-					<input type="checkbox" onChange={resolveHandler} />
-					<span className="slider round"></span>
-				</label>
-			</div>
+			{status === 'tentative' && (
+				<div className="status-update-input-container">
+					<span className="status-update-input-label">Auto-Reject</span>
+					<label className="switch">
+						<input type="checkbox" onChange={resolveHandler} />
+						<span className="slider round"></span>
+					</label>
+				</div>
+			)}
 			<div className="status-update-divider"></div>
 		</Modal>
 	);

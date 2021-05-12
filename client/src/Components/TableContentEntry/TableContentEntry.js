@@ -61,6 +61,7 @@ const TableContentEntry = ({
 						showConfirm={show && status !== ''}
 						cancelConfirmHandler={cancelConfirmHandler}
 						saveConfirmHandler={saveConfirmHandler}
+						status={status}
 					/>
 					<div className="table-entry-col">
 						<img
@@ -153,10 +154,11 @@ const TableContentEntry = ({
 								}`}
 								style={{
 									backgroundColor: `${
-										entry.validation_status === '0' ||
-										entry.validation_status == null
+										(entry.validation_status === '0' ||
+											entry.validation_status == null) &&
+										!edit
 											? '#00bfff'
-											: ''
+											: '#1b047c'
 									}`,
 								}}
 								onClick={editClickHandler}
