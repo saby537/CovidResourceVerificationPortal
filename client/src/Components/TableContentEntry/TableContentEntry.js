@@ -148,18 +148,14 @@ const TableContentEntry = ({
 							/>
 							<Edit
 								className={` table-entry-icon ${
-									entry.validation_status === '0'
-										? 'table-entry-icon-original'
+									entry.validation_status === '0' ||
+									entry.validation_status == null
+										? 'table-entry-edit-icon'
 										: 'table-entry-icon-deactivate'
 								}`}
 								style={{
-									backgroundColor: `${
-										(entry.validation_status === '0' ||
-											entry.validation_status == null) &&
-										!edit
-											? '#00bfff'
-											: '#1b047c'
-									}`,
+									backgroundColor: `${edit ? '#1b047c' : ''}`,
+									color: `${edit ? 'white' : ''}`,
 								}}
 								onClick={editClickHandler}
 							/>

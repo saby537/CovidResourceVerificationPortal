@@ -84,7 +84,12 @@
 	cursor: pointer;
 }
 
-.table-entry-teact-area {
+.table-entry-text-area {
 	width: 100%;
 	height: 100%;
+}
+
+.table-entry-edit-icon {
+	background-color: #00bfff;
+	color: white;
 }
