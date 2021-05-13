@@ -8,11 +8,15 @@ const login = require('../utils/login');
 const logout = require('../utils/logout');
 const router = express.Router();
 router.use(checkAuth);
-router.get('/api/requests/:name/:status', getRequests);
 router.post(
-	'/api/requests',
+	'/api/request',
 	[(check('status').not().isEmpty(), check('id').not().isEmpty())],
 	updateRequests
+);
+router.patch(
+	'/api/requests',
+	[(check('status').not().isEmpty(), check('name').not().isEmpty())],
+	getRequests
 );
 router.post(
 	'/api/login',

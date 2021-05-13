@@ -3,7 +3,10 @@ import { XCircle, CheckCircle, Edit, HelpCircle } from 'react-feather';
 import StatusUpdateModal from '../StatusUpdateModal/StatusUpdateModal';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectLoading } from '../../redux/requests/requests.selector';
+import {
+	selectLoading,
+	selectFilter,
+} from '../../redux/requests/requests.selector';
 import { selectUsername } from '../../redux/user/user.selector';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import {
@@ -19,6 +22,7 @@ const TableContentEntry = ({
 	isLoading,
 	username,
 	editRequests,
+	filter,
 }) => {
 	//	const hist = useHistory();
 	const [edit, setEdit] = useState(false);
@@ -30,7 +34,8 @@ const TableContentEntry = ({
 		provider: entry.provider,
 		requirement_list: entry.requirement_list,
 		city: entry.city,
-		validation_details: entry.validation_details,
+		validation_details:
+			entry.validation_details == null ? '' : entry.validation_details,
 		phone_number: entry.phone_number,
 	});
 	const editClickHandler = async () => {
@@ -53,6 +58,7 @@ const TableContentEntry = ({
 			id: entry.id,
 			status: status,
 			remarks: remarks,
+			filter,
 		});
 	};
 
@@ -162,18 +168,13 @@ const TableContentEntry = ({
 					<div id="validation_details" className="table-entry-col">
 						<textarea
 							id={`${entry.id}-validation_details`}
-							value={`${
-								values.validation_details == null
-									? ''
-									: values.validation_details
-							}`}
+							value={values.validation_details}
 							className="table-entry-input-value"
 							onChange={onChangeHandler}
 							rows={3}
 							disabled={!edit}
 						/>
 					</div>
-					<div className="table-entry-col"></div>
 					<div className="table-entry-col">
 						<div className="table-entry-icon-container">
 							<CheckCircle
@@ -254,6 +255,7 @@ const TableContentEntry = ({
 const mapStateToProps = createStructuredSelector({
 	isLoading: selectLoading,
 	username: selectUsername,
+	filter: selectFilter,
 });
 
 const mapDispatchToProps = (dispatch) => ({

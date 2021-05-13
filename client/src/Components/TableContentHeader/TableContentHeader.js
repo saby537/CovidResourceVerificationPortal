@@ -1,22 +1,40 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectFilter } from '../../redux/requests/requests.selector';
+import { Filter } from 'react-feather';
 import '../TabbedContent/TabbedContent.css';
 import './TableContentHeader.css';
 
-const TableContentHeader = () => {
+const TableContentHeader = ({ filter }) => {
+	console.log(filter);
 	return (
 		<div className="table-header-container">
 			<div className="table-header-col">Source</div>
 			<div className="table-header-col">Time</div>
 			<div className="table-header-col">Message</div>
-			<div className="table-header-col">Item</div>
-			<div className="table-header-col">Location</div>
+			<div className="table-header-col table-header-filter">
+				<span style={{ width: '100%' }}>Requirement</span>
+				{filter !== '' && filter.requirement !== '' && (
+					<Filter style={{ height: '70%', marginRight: '5px' }} />
+				)}
+			</div>
+			<div className="table-header-col table-header-filter">
+				<span style={{ width: '100%' }}>City</span>
+				{filter !== '' && filter.city !== '' && (
+					<Filter style={{ height: '70%', marginRight: '5px' }} />
+				)}
+			</div>
 			<div className="table-header-col">Name</div>
 			<div className="table-header-col">Contact</div>
 			<div className="table-header-col">Remarks</div>
-			<div className="table-header-col">Link</div>
 			<div className="table-header-col">Action</div>
 		</div>
 	);
 };
 
-export default TableContentHeader;
+const mapStateToProps = createStructuredSelector({
+	filter: selectFilter,
+});
+
+export default connect(mapStateToProps)(TableContentHeader);

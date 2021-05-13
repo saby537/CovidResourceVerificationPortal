@@ -14,3 +14,8 @@ export const selectLoading = createSelector(
 	[selectRequests],
 	(requests) => requests.isLoading
 );
+
+export const selectFilter = createSelector(
+	[selectRequests],
+	(requests) => requests.filter
+);

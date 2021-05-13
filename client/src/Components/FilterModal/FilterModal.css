@@ -1,0 +1,62 @@
+.status-update-header {
+	padding: 10px 10px;
+}
+.status-update-footer {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	padding-top: 0 !important;
+}
+
+.status-update-input-container {
+	display: flex;
+	flex-direction: row;
+	margin: 10px;
+	margin-bottom: 20px;
+	align-items: center;
+}
+
+.status-update-input-label {
+	min-width: 18%;
+	font-weight: bold;
+	margin-right: 10px;
+	display: flex;
+	font-size: 16px;
+	flex-direction: column;
+}
+
+.status-update-input-label .sub-head {
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.status-update-input-text {
+	flex: 1;
+	font-family: inherit;
+	padding: 5px;
+	font-size: 13px;
+	font-weight: 500;
+	letter-spacing: 0.4px;
+}
+.status-update-divider {
+	margin: auto;
+	width: 100%;
+	border: solid 1px #aaaaaa;
+}
+
+.filter-label {
+	font-weight: 600;
+	min-width: 20%;
+}
+
+.clear-icon-container {
+	background-color: #c83200;
+	color: white;
+	font-weight: bolder;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	padding: 4px;
+	margin-left: 10px;
+	cursor: pointer;
+}

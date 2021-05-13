@@ -3,6 +3,7 @@ const INITIAL_STATE = {
 	resources: null,
 	isLoading: false,
 	error: null,
+	filter: '',
 };
 
 const updateRequest = (requests, data) => {
@@ -58,6 +59,16 @@ const requestReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				error: null,
+			};
+		case requestsActionTypes.ADD_FILTER:
+			return {
+				...state,
+				filter: action.payload,
+			};
+		case requestsActionTypes.REMOVE_FILTER:
+			return {
+				...state,
+				filter: '',
 			};
 		default:
 			return state;

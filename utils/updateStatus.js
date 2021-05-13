@@ -19,9 +19,23 @@ const getRequests = async (req, res, next) => {
 		}
 		const { id, status, remarks } = req.body;
 		const statusVal = statusLists[status];
+		const date = new Date();
+		const timeTweet =
+			date.getFullYear() +
+			'-' +
+			(date.getMonth() + 1) +
+			'-' +
+			date.getDate() +
+			' ' +
+			date.getHours() +
+			':' +
+			date.getMinutes() +
+			':' +
+			date.getSeconds();
+		console.log(timeTweet);
 		//console.log(id, statusVal);
 		response = await client.query(
-			`update covid_resource_details set Validation_status = '${statusVal}',Validation_details = '${remarks}'  where Id like '${id}'`
+			`update covid_resource_details set Validation_status = '${statusVal}',Validation_details = '${remarks}',Validated_at = '${timeTweet}'  where Id like '${id}'`
 		);
 		//console.log(response);
 	} catch (error) {

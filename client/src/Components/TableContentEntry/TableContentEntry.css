@@ -1,6 +1,6 @@
 .table-entry-container {
 	display: grid;
-	grid-template-columns: 6% 7% 20% 7% 10% 10% 11% 12% 7% 10%;
+	grid-template-columns: 6% 7% 22% 13% 9% 11% 10% 12% 10%;
 }
 
 .table-entry-col {

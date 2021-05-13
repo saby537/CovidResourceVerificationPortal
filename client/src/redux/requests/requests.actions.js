@@ -44,3 +44,13 @@ export const editRequestsFailure = (err) => ({
 	type: requestsActionTypes.EDIT_REQUESTS_FAILURE,
 	payload: err,
 });
+
+export const addFilter = (data) => ({
+	type: requestsActionTypes.ADD_FILTER,
+	payload: data,
+});
+
+export const removeFilter = (data) => ({
+	type: requestsActionTypes.REMOVE_FILTER,
+	payload: data,
+});

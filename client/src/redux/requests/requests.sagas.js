@@ -14,8 +14,14 @@ export function* getRequests({ payload }) {
 	const httpAbortCtrl = new AbortController();
 	try {
 		//console.log(payload);
-		const res = yield fetch(`/api/requests/${payload.name}/${payload.status}`, {
-			method: 'GET',
+		const { name, status, filter } = payload;
+		const reqBody = { name, status, filter };
+		const res = yield fetch(`/api/requests`, {
+			method: 'PATCH',
+			body: JSON.stringify(reqBody),
+			headers: {
+				'Content-Type': 'application/json',
+			},
 			signal: httpAbortCtrl.signal,
 		});
 		const responseData = yield res.json();
@@ -39,10 +45,10 @@ export function* onGetRequests() {
 export function* updateStatus({ payload }) {
 	const httpAbortCtrl = new AbortController();
 	try {
-		//console.log(payload);
-		const { id, status, name, remarks } = payload;
+		console.log(payload);
+		const { id, status, name, remarks, filter } = payload;
 		const reqBody = { id, status, remarks };
-		const res = yield fetch(`/api/requests`, {
+		const res = yield fetch(`/api/request`, {
 			method: 'POST',
 			body: JSON.stringify(reqBody),
 			headers: {
@@ -56,7 +62,7 @@ export function* updateStatus({ payload }) {
 			yield put(updateStatusFailure(responseData.errors));
 		} else {
 			yield put(updateStatusSuccess(responseData.resources));
-			yield put(getRequestsStart({ name, status: 'requests' }));
+			yield put(getRequestsStart({ name, status: 'requests', filter }));
 		}
 	} catch (err) {
 		console.log('error');

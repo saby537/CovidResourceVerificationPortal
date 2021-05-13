@@ -17,7 +17,7 @@ const getRequests = async (req, res, next) => {
 			console.log(errors);
 			return next(new HttpError('Invalid data entry!!', 422));
 		}
-		const { name, status } = req.params;
+		const { name, status, filter } = req.body;
 		const statusVal = statusLists[status];
 		let valName = "Validated_by::text like '" + name + "'";
 		if (statusVal === '0') {
@@ -28,8 +28,25 @@ const getRequests = async (req, res, next) => {
 			valStatus = 'Validation_status is NULL or ' + valStatus;
 		}
 		//console.log(valName, valStatus);
+		let filterStatement = '';
+		if (filter != '') {
+			const { city, requirement } = filter;
+
+			if (city !== '') {
+				filterStatement =
+					filterStatement + "AND city like '%" + city.toLowerCase() + "%' ";
+			}
+			if (requirement !== '') {
+				filterStatement =
+					filterStatement +
+					"AND requirement_list like '%" +
+					requirement.toLowerCase() +
+					"%' ";
+			}
+		}
+		console.log('filter', filterStatement);
 		ans = await client.query(
-			`select id,Time,Message,Provider,Validation_status,Validation_details,Source,City,Requirement_list,Phone_number from covid_resource_details where (${valName}) and (${valStatus}) and City is not NULL and Requirement_list is not NULL and Phone_number is not NULL ORDER BY Validation_status,Time DESC limit 10 `
+			`select id,Time,Message,Provider,Validation_status,Validation_details,Source,City,Requirement_list,Phone_number from covid_resource_details where (${valName}) and (${valStatus}) and City is not NULL and Requirement_list is not NULL and Phone_number is not NULL ${filterStatement} ORDER BY Validation_status,Time DESC limit 10 `
 		);
 
 		if (statusVal === '0') {
@@ -39,8 +56,22 @@ const getRequests = async (req, res, next) => {
 			});
 			ids = ids.substr(0, ids.length - 2);
 			//console.log(ids);
+			const date = new Date();
+			const timeTweet =
+				date.getFullYear() +
+				'-' +
+				(date.getMonth() + 1) +
+				'-' +
+				date.getDate() +
+				' ' +
+				date.getHours() +
+				':' +
+				date.getMinutes() +
+				':' +
+				date.getSeconds();
+			//console.log(timeTweet);
 			const res = await client.query(
-				`update covid_resource_details set Validation_status = '0',Validated_by = '${name}' where Id in (${ids})`
+				`update covid_resource_details set Validation_status = '0',Validated_at = '${timeTweet}',Validated_by = '${name}' where Id in (${ids})`
 			);
 			//console.log(res);
 		}

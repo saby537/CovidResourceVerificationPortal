@@ -30,8 +30,6 @@
 	background-color: #eeeeee;
 	cursor: pointer;
 }
-.tab-headers-container .tab-header:first-of-type {
-}
 .active {
 	color: white;
 	background-color: #1b047c;
@@ -43,4 +41,5 @@
 .tab-icon {
 	color: #1b047c;
 	height: 100%;
+	cursor: pointer;
 }
