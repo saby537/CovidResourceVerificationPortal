@@ -13,21 +13,44 @@ const Login = ({ startLogIn, isLoading, loginError, clearError }) => {
 	const [password, setPassword] = useState({
 		isValid: false,
 		value: '',
+		error: '',
 	});
 	const [username, setUsername] = useState({
 		isValid: false,
 		value: '',
+		error: '',
 	});
+	const [email, setEmail] = useState({
+		isValid: false,
+		value: '',
+		error: '',
+	});
+	const [error, setError] = useState('');
+	const [isSignUp, setSignUp] = useState(false);
 	const submitHandler = async () => {
 		await startLogIn({ username, password });
 	};
 
 	const usernameChangeHandler = (e) => {
-		setUsername({ value: e.target.value, isValid: true });
+		let isValid = true;
+		let error = '';
+		if (e.target.value.indexOf(' ') >= 0) {
+			isValid = false;
+			error = 'No spaces allowed';
+		}
+		setUsername((prev) => ({
+			error: error,
+			value: e.target.value,
+			isValid: isValid,
+		}));
 	};
 
 	const passwordChangeHandler = (e) => {
-		setPassword({ value: e.target.value, isValid: true });
+		setPassword((prev) => ({ ...prev, value: e.target.value, isValid: true }));
+	};
+
+	const emailChangeHandler = (e) => {
+		setEmail((prev) => ({ ...prev, value: e.target.value, isValid: true }));
 	};
 
 	return (
@@ -46,7 +69,28 @@ const Login = ({ startLogIn, isLoading, loginError, clearError }) => {
 								value={username.value}
 								onChange={usernameChangeHandler}
 							/>
+							{username.error !== '' && (
+								<label className="login-input-error-label">
+									{username.error}
+								</label>
+							)}
 						</div>
+						{isSignUp && (
+							<div className="login-input-container">
+								<label className="login-input-label">Email</label>
+								<input
+									className="login-input"
+									type="text"
+									value={email.value}
+									onChange={emailChangeHandler}
+								/>
+								{email.error !== '' && (
+									<label className="login-input-error-label">
+										{email.error}
+									</label>
+								)}
+							</div>
+						)}
 						<div className="login-input-container">
 							<label className="login-input-label">Password</label>
 							<input
@@ -55,16 +99,30 @@ const Login = ({ startLogIn, isLoading, loginError, clearError }) => {
 								value={password.value}
 								onChange={passwordChangeHandler}
 							/>
+							{password.error !== '' && (
+								<label className="login-input-error-label">
+									{password.error}
+								</label>
+							)}
 						</div>
 						<Button
 							onClick={submitHandler}
-							disabled={!password.isValid || !username.isValid}
+							disabled={
+								!password.isValid ||
+								!username.isValid ||
+								(isSignUp && !email.isValid)
+							}
 						>
-							Login
+							{isSignUp ? 'Sign Up' : 'Login'}
 						</Button>
 						<div className="join-us-container">
-							<span>Want to</span>
-							<span className="join-us"> Join Us?</span>
+							<span>{isSignUp ? 'Already a user ' : 'Want to '}</span>
+							<span
+								className="join-us"
+								onClick={() => setSignUp((prev) => !prev)}
+							>
+								{isSignUp ? 'Log In' : 'Join Us?'}
+							</span>
 						</div>
 					</div>
 				</div>
