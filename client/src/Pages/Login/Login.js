@@ -121,7 +121,13 @@ const Login = ({
 						</div>
 						{isSignUp && (
 							<div className="login-input-container">
-								<label className="login-input-label">Preferred City</label>
+								<label className="login-input-label">
+									Preferred City
+									<span style={{ fontSize: '12px' }}>
+										{' '}
+										(Enter only one city)
+									</span>
+								</label>
 								<input
 									className="login-input"
 									type="text"
