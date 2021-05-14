@@ -109,7 +109,7 @@ const TableContentEntry = ({
 						<img
 							src="../../assets/twitter-icon.png"
 							alt="twitter-icon"
-							style={{ width: '70%', padding: '8px 4px' }}
+							style={{ width: '50%', padding: '8px 4px' }}
 						/>
 					</div>
 					<div className="table-entry-col" style={{ padding: '8px 4px' }}>
