@@ -6,8 +6,8 @@ import { Filter } from 'react-feather';
 import '../TabbedContent/TabbedContent.css';
 import './TableContentHeader.css';
 
-const TableContentHeader = ({ filter }) => {
-	console.log(filter);
+const TableContentHeader = ({ filter, selected }) => {
+	//console.log(filter);
 	return (
 		<div className="table-header-container">
 			<div className="table-header-col">Source</div>
@@ -15,13 +15,15 @@ const TableContentHeader = ({ filter }) => {
 			<div className="table-header-col">Message</div>
 			<div className="table-header-col table-header-filter">
 				<span style={{ width: '100%' }}>Requirement</span>
-				{filter !== '' && filter.requirement !== '' && (
-					<Filter style={{ height: '70%', marginRight: '5px' }} />
-				)}
+				{filter !== '' &&
+					selected === 'requests' &&
+					filter.requirement !== '' && (
+						<Filter style={{ height: '70%', marginRight: '5px' }} />
+					)}
 			</div>
 			<div className="table-header-col table-header-filter">
 				<span style={{ width: '100%' }}>City</span>
-				{filter !== '' && filter.city !== '' && (
+				{filter !== '' && selected === 'requests' && filter.city !== '' && (
 					<Filter style={{ height: '70%', marginRight: '5px' }} />
 				)}
 			</div>

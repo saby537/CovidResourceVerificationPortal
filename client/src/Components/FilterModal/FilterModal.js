@@ -1,19 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from '../Modal/Modal';
 import Button from '../Button/Button';
 import { X } from 'react-feather';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectFilter } from '../../redux/requests/requests.selector';
+
 import './FilterModal.css';
 
 const FilterModal = ({
 	showConfirm,
 	cancelConfirmHandler,
 	saveConfirmHandler,
+	filter,
 }) => {
 	const [filterValue, setFilterValue] = useState({
 		city: '',
 		requirement: '',
 	});
-
+	useEffect(() => {
+		setFilterValue({ city: filter.city, requirement: filter.requirement });
+	}, [filter]);
 	const inputChangeHandler = (e) => {
 		setFilterValue((prev) => ({ ...prev, [e.target.id]: e.target.value }));
 	};
@@ -75,4 +82,8 @@ const FilterModal = ({
 	);
 };
 
-export default FilterModal;
+const mapStateToProps = createStructuredSelector({
+	filter: selectFilter,
+});
+
+export default connect(mapStateToProps)(FilterModal);

@@ -14,7 +14,7 @@ const login = async (req, res, next) => {
 		}
 		console.log(username, password);
 		const response = await client.query(
-			`select username,email from user_details where username like '${username}' and password like '${password}' `
+			`select username,email,city_preference from user_details where username like '${username}' and password like '${password}' `
 		);
 		ans = response.rows;
 	} catch (error) {

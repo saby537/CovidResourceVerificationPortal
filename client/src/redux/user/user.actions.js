@@ -14,6 +14,20 @@ export const logInFailure = (err) => ({
 	payload: err,
 });
 
+export const signUpStart = (user) => ({
+	type: userActionTypes.SIGN_UP_START,
+	payload: user,
+});
+export const signUpSuccess = (user) => ({
+	type: userActionTypes.SIGN_UP_SUCCESS,
+	payload: user,
+});
+
+export const signUpFailure = (err) => ({
+	type: userActionTypes.SIGN_UP_FAILURE,
+	payload: err,
+});
+
 export const emptyError = () => ({
 	type: userActionTypes.EMPTY_ERROR,
 });

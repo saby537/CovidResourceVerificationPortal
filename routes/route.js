@@ -5,6 +5,7 @@ const getRequests = require('../utils/getRequests');
 const updateRequests = require('../utils/updateStatus');
 const editRequests = require('../utils/editRequest');
 const login = require('../utils/login');
+const signUp = require('../utils/signUp');
 const logout = require('../utils/logout');
 const router = express.Router();
 router.use(checkAuth);
@@ -22,6 +23,15 @@ router.post(
 	'/api/login',
 	[(check('username').not().isEmpty(), check('password').not().isEmpty())],
 	login
+);
+router.post(
+	'/api/signup',
+	[
+		(check('username').not().isEmpty(),
+		check('email').not().isEmpty(),
+		check('password').not().isEmpty()),
+	],
+	signUp
 );
 router.post(
 	'/api/requests/edit',

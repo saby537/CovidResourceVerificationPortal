@@ -3,7 +3,7 @@ const INITIAL_STATE = {
 	resources: null,
 	isLoading: false,
 	error: null,
-	filter: '',
+	filter: { city: '', requirement: '' },
 };
 
 const updateRequest = (requests, data) => {

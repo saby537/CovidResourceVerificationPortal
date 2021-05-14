@@ -5,11 +5,21 @@ import ErrorModal from '../../Components/ErrorModal/ErrorModal';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectError, selectLoading } from '../../redux/user/user.selector.js';
-import { logInStart, emptyError } from '../../redux/user/user.actions';
+import {
+	logInStart,
+	emptyError,
+	signUpStart,
+} from '../../redux/user/user.actions';
 
 import './Login.css';
 
-const Login = ({ startLogIn, isLoading, loginError, clearError }) => {
+const Login = ({
+	startLogIn,
+	isLoading,
+	loginError,
+	clearError,
+	startSignUp,
+}) => {
 	const [password, setPassword] = useState({
 		isValid: false,
 		value: '',
@@ -25,10 +35,14 @@ const Login = ({ startLogIn, isLoading, loginError, clearError }) => {
 		value: '',
 		error: '',
 	});
-	const [error, setError] = useState('');
+	const [city, setCity] = useState('');
 	const [isSignUp, setSignUp] = useState(false);
 	const submitHandler = async () => {
-		await startLogIn({ username, password });
+		if (isSignUp) {
+			await startSignUp({ username, email, password, city });
+		} else {
+			await startLogIn({ username, password });
+		}
 	};
 
 	const usernameChangeHandler = (e) => {
@@ -105,6 +119,17 @@ const Login = ({ startLogIn, isLoading, loginError, clearError }) => {
 								</label>
 							)}
 						</div>
+						{isSignUp && (
+							<div className="login-input-container">
+								<label className="login-input-label">Preferred City</label>
+								<input
+									className="login-input"
+									type="text"
+									value={city}
+									onChange={(e) => setCity(e.target.value)}
+								/>
+							</div>
+						)}
 						<Button
 							onClick={submitHandler}
 							disabled={
@@ -138,6 +163,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
 	startLogIn: (data) => dispatch(logInStart(data)),
+	startSignUp: (data) => dispatch(signUpStart(data)),
 	clearError: () => dispatch(emptyError()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

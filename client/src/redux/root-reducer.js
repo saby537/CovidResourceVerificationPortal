@@ -6,7 +6,7 @@ import requestReducer from './requests/requests.reducer';
 const persistConfig = {
 	key: 'root',
 	storage,
-	whitelist: ['user'],
+	whitelist: ['user', 'requests'],
 };
 
 const rootReducer = combineReducers({

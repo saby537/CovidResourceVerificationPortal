@@ -29,14 +29,14 @@ const getRequests = async (req, res, next) => {
 		}
 		//console.log(valName, valStatus);
 		let filterStatement = '';
-		if (filter != '') {
+		if (filter != '' && statusVal === '0') {
 			const { city, requirement } = filter;
 
 			if (city !== '') {
 				filterStatement =
 					filterStatement + "AND city like '%" + city.toLowerCase() + "%' ";
 			}
-			if (requirement !== '') {
+			if (requirement !== '' && requirement) {
 				filterStatement =
 					filterStatement +
 					"AND requirement_list like '%" +
